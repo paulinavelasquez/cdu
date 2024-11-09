@@ -1,6 +1,6 @@
 # CDU - Clustering in Diversity and Uncertainty for Pavement Defect Detection
 
-**Implementation of paper** - [CDU: A Diversity and Uncertainty-Based Active Learning Framework for Pavement Defect Detection]
+**Implementation of paper** - [Active Learning Applied to YOLOv9 for the Detection and Classification of Pavement Defects]
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.13616-b31b1b.svg)](https://arxiv.org/abs/2402.13616)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Spaces-blue.svg)](https://huggingface.co/spaces)
