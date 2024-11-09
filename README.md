@@ -49,20 +49,15 @@ CDU uses **YOLOv9** as its backbone model, a state-of-the-art single-stage objec
 To determine which samples are the most informative for labeling, CDU calculates **confidence** and **uncertainty** for each detected object as follows:
 
 - **Bounding Box Confidence** (`confidence_box`): Represents the likelihood of an object within a bounding box, calculated as:
-  \[
-  \text{confidence\_box} = Pr(\text{object}) \times \text{IoU}
-  \]
+  confidence_box = Pr(object) * IoU
+  
   where IoU (Intersection over Union) measures the overlap between the predicted bounding box and the ground truth.
 
 - **Class Confidence** (`confidence_class`): Combines bounding box confidence with class probability, allowing YOLOv9 to determine the most likely class for each bounding box:
-  \[
-  \text{confidence\_class} = \max_k \left( \text{confidence\_box} \times Pr(\text{class}_k | \text{object}) \right)
-  \]
+  confidence_class = max_k (confidence_box * Pr(class_k | object))
 
 - **Uncertainty Score** (`uncertainty_object`): Defined as the complement of the class confidence, representing the uncertainty of the model’s prediction:
-  \[
-  \text{uncertainty_object} = 1 - \text{confidence_class}
-  \]
+  uncertainty_object = 1 - confidence_class
 
 These calculations allow CDU to prioritize high-uncertainty samples, optimizing the active learning process by selecting the most informative samples for labeling.
 
