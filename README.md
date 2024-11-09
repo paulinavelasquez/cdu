@@ -26,7 +26,7 @@ CDU demonstrates superior performance by selecting diverse and high-uncertainty 
 
 ## Performance Comparison of Methods
 
-The table below compares the performance of different methods on the pavement defect detection task:
+The table below compares the performance of different methods on the object detection task:
 
 | Método   | Objetos | Precisión  | mAP@50     | Crack (mAP) | Patch (mAP) | Pothole (mAP) | AUC      |
 |----------|---------|------------|------------|-------------|-------------|---------------|----------|
