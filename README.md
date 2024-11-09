@@ -49,7 +49,9 @@ CDU uses **YOLOv9** as its backbone model, a state-of-the-art single-stage objec
 To determine which samples are the most informative for labeling, CDU calculates **confidence** and **uncertainty** for each detected object as follows:
 
 - **Bounding Box Confidence** (`confidence_box`): Represents the likelihood of an object within a bounding box, calculated as:
-  confidence_box = Pr(object) * IoU
+  ![confidence_box](https://latex.codecogs.com/png.latex?confidence\_box%20%3D%20Pr(object)%20*%20IoU)
+
+  
   
   where IoU (Intersection over Union) measures the overlap between the predicted bounding box and the ground truth.
 
