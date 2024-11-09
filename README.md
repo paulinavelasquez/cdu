@@ -10,36 +10,87 @@
 
 ---
 
+## Overview
+
+This repository provides the **Clustering in Diversity and Uncertainty (CDU)** approach for optimizing active learning in object detection, focusing on pavement defects like potholes, cracks, and patches. By leveraging YOLOv9 as the backbone, CDU selectively labels only the most informative images, significantly reducing data annotation costs while ensuring high model accuracy.
+
+---
+
 ## Performance on Pavement Defect Detection Dataset
 
 ![Performance on Pavement Defect Dataset](performance_chart.png)
 
-CDU achieves superior performance by selectively choosing the most informative samples for labeling. Leveraging the YOLOv9 backbone, CDU significantly improves defect detection in challenging, unbalanced datasets, ensuring high accuracy with fewer labeled samples.
+CDU demonstrates superior performance by selecting diverse and high-uncertainty samples, allowing it to maintain high detection accuracy with fewer labeled samples, even in unbalanced datasets.
 
 ---
 
-## Performance
-| Model           | Backbone     | Dataset             | mAP (%)  | Precision (%) | Recall (%) |
-|-----------------|--------------|---------------------|----------|---------------|------------|
-| CDU             | YOLOv9       | Pavement Defects    | 49.7     | 50.8          | 52.1       |
-| CDU (Baseline)  | YOLOv8       | Pavement Defects    | 47.0     | 48.3          | 50.2       |
-| Random          | YOLOv9       | Pavement Defects    | 43.2     | 44.5          | 47.8       |
+## Performance Comparison of Methods
+
+The table below compares the performance of different methods on the pavement defect detection task:
+
+| Método   | Objetos | Precisión  | mAP@50     | Crack (mAP) | Patch (mAP) | Pothole (mAP) | AUC      |
+|----------|---------|------------|------------|-------------|-------------|---------------|----------|
+| Inicial  | 435     | 0.308090   | 0.204169   | 0.005444    | 0.354748    | 0.252317      | -        |
+| Random   | 1873    | 0.431776   | 0.325667   | 0.021464    | 0.543822    | 0.411717      | 0.775421 |
+| Sum      | 3486    | 0.465734   | 0.374198   | 0.025075    | 0.626333    | 0.471185      | 0.768690 |
+| Avg      | 2159    | 0.454143   | **0.407099** | 0.032127 | **0.647408** | **0.541762** | 0.779141 |
+| DUA      | 2598    | 0.446610   | 0.386136   | 0.035419    | 0.628757    | 0.494233      | 0.808191 |
+| **CDU**  | 2441    | **0.497016** | 0.374519 | **0.044482** | 0.593338   | 0.485738      | **0.811746** |
 
 ---
 
-## Description
-This repository provides the **Clustering in Diversity and Uncertainty (CDU)** approach for optimizing active learning in object detection, specifically for detecting pavement defects like potholes, cracks, and patches. By using a YOLOv9 backbone, CDU selectively labels only the most informative images, significantly reducing data annotation costs while maintaining high accuracy.
+## Landscape Overview
 
-### Key Features
-- **Backbone Model**: Based on YOLOv9, which uses GELAN and Programmable Gradient Information (PGI) to optimize feature extraction for road defects.
-- **Active Learning with CDU**: Combines uncertainty and diversity-based clustering to select samples that maximize model improvement with fewer labeled images.
-- **Uncertainty and Confidence Calculation**: Uses custom uncertainty measures to prioritize the most informative samples in unbalanced datasets.
+### Backbone Model: YOLOv9
+CDU uses **YOLOv9** as its backbone model, a state-of-the-art single-stage object detector that is optimized for real-time applications. YOLOv9 includes enhancements such as **GELAN** and **Programmable Gradient Information (PGI)**, which allow for efficient feature retention even in deep networks. This helps the model handle complex road surfaces and varied defect types effectively.
+
+### Confidence and Uncertainty Calculation
+
+To determine which samples are the most informative for labeling, CDU calculates **confidence** and **uncertainty** for each detected object as follows:
+
+- **Bounding Box Confidence** (`confidence_box`): Represents the likelihood of an object within a bounding box, calculated as:
+  \[
+  \text{confidence\_box} = Pr(\text{object}) \times \text{IoU}
+  \]
+  where IoU (Intersection over Union) measures the overlap between the predicted bounding box and the ground truth.
+
+- **Class Confidence** (`confidence_class`): Combines bounding box confidence with class probability, allowing YOLOv9 to determine the most likely class for each bounding box:
+  \[
+  \text{confidence\_class} = \max_k \left( \text{confidence\_box} \times Pr(\text{class}_k | \text{object}) \right)
+  \]
+
+- **Uncertainty Score** (`uncertainty_object`): Defined as the complement of the class confidence, representing the uncertainty of the model’s prediction:
+  \[
+  \text{uncertainty_object} = 1 - \text{confidence_class}
+  \]
+
+These calculations allow CDU to prioritize high-uncertainty samples, optimizing the active learning process by selecting the most informative samples for labeling.
+
+---
+
+## Methodology
+
+### 1. Diverse Uncertainty Aggregation (DUA)
+The **DUA** score aggregates uncertainties across detected classes in each image, ensuring a balanced selection from different defect types. This prevents over-representation of one class in the labeled dataset.
+
+### 2. Clustering in Diversity and Uncertainty (CDU)
+
+CDU optimizes active learning through clustering, using **Gaussian Mixture Model (GMM)** to group images based on their class-specific uncertainty scores. The steps involved are:
+
+- **Image Clustering**: Images are grouped based on uncertainty scores to ensure that selected samples represent diverse types of pavement defects.
+- **Sainte-Laguë Method for Proportional Selection**: Ensures a balanced representation of clusters in the selected samples by allocating samples based on cluster size.
+- **Modular Optimization**: A scoring function combines **uncertainty** and **diversity** in each sample batch, ensuring that the samples selected are both varied and informative. 
+
+### 3. Sample Selection and Labeling
+Using the scoring function, CDU prioritizes the samples that maximize learning gains in each active learning iteration, ensuring that the selected samples contribute effectively to model improvement.
 
 ---
 
 ## Running on Google Colab
-The entire CDU pipeline is available in Google Colab. **Only the Ultralytics YOLO library is required**, making setup quick and easy.
+
+The CDU framework is designed to run seamlessly on **Google Colab**. Only the **Ultralytics YOLO** library needs to be installed, making setup quick and easy.
 
 ```python
 # Install YOLOv9 from Ultralytics in Google Colab
 !pip install ultralytics
+
