@@ -12,7 +12,7 @@
 
 ## Overview
 
-This repository provides the **Clustering in Diversity and Uncertainty (CDU)** approach for optimizing active learning in object detection, focusing on pavement defects like potholes, cracks, and patches. By leveraging YOLOv9 as the backbone, CDU selectively labels only the most informative images, significantly reducing data annotation costs while ensuring high model accuracy.
+This repository provides the **Clustering in Diversity and Uncertainty (CDU)** approach for optimizing active learning in object detection, focusing on pavement defects like potholes, cracks, and patches. By leveraging YOLOv9 as the backbone, CDU selectively labels only the most informative images, significantly reducing data annotation costs while ensuring high model pecision.
 
 ---
 
