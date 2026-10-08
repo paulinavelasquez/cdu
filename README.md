@@ -1,4 +1,4 @@
-# CDU: active learning for pavement-defect detection
+# CDU (Clustering in Diversity and Uncertainty): active learning for pavement-defect detection
 
 A large image collection does not guarantee a reliable detector when only a
 small subset is labeled. Pavement inspection requires expert annotation, is
