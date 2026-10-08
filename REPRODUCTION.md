@@ -111,9 +111,10 @@ Sainte-Laguë, modular-refinement, and final-retention functions used by
 [![GMM groups and covariance ellipsoids in the three-dimensional uncertainty space](figures/clustering/Clustering_GMM_preview.png)](figures/clustering/Clustering_GMM.pdf)
 
 *GMM partition of the class-wise uncertainty space. Click the preview for the
-vector PDF, or open the
-[3D notebook](notebooks/cdu_3d_visualization.ipynb) for the interactive view and
-the complete selection sequence.*
+vector PDF, or open the [3D notebook](notebooks/cdu_3d_visualization.ipynb) to
+view the complete static sequence on GitHub. After cloning the repository, set
+`INTERACTIVE_3D = True` in the notebook to rotate, zoom, and inspect the same
+figures locally.*
 
 The panels represent:
 

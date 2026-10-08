@@ -107,7 +107,9 @@ Three notebooks provide the scientific reading of the method and results:
    reconstructs the four panels for round 36: the DUA reference, GMM groups,
    80 candidates, and 20 CDU acquisitions. Three-dimensional visualization is
    possible because the study has three classes; each axis represents the
-   uncertainty response for `crack`, `patch`, or `pothole`;
+   uncertainty response for `crack`, `patch`, or `pothole`. Static previews are
+   embedded for GitHub, while `INTERACTIVE_3D = True` enables rotation, zoom,
+   and hover when the notebook is run locally;
 2. [active_learning.ipynb](notebooks/active_learning.ipynb) reconstructs the
    image- and object-based learning curves, test comparison, DUA/CDU class
    plots, nine-variant table, and `crack` AUC curve;
