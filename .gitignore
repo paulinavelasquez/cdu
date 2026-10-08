@@ -1,0 +1,21 @@
+__pycache__/
+.ipynb_checkpoints/
+
+# Large local files; TXT manifests and data.yaml remain publishable.
+datasets/images/
+datasets/labels/
+datasets/videos/
+datasets/*.cache
+datasets/train_*.txt
+datasets/data_CDU/*.txt
+weights/*.pt
+!weights/yolov9e.pt
+!weights/cdu_final.pt
+
+# Local training state. Only the two published CSV files belong to the public
+# paper package.
+run_model/*
+!run_model/results/
+run_model/results/*
+!run_model/results/active_learning_results.csv
+!run_model/results/sensitivity_results.csv

@@ -1,0 +1,6 @@
+path: '.'
+train: 'train.txt'
+val: 'valid.txt'
+test: 'test.txt'
+nc: 3
+names: ['crack', 'patch', 'pothole']
